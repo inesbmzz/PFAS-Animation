@@ -1,0 +1,38 @@
+[
+    {
+      "offset": [-3, 0, 0],
+      "atoms": [
+        { "position": [0.0745, -0.5534, 0.0000], "color": "0x000000" },
+        { "position": [-1.2043, 0.2502, 0.0000], "color": "000000" },
+        { "position": [1.1298, 0.3032, 0.0000], "color": "00ff00" },
+        { "position": [0.1472, -1.1828, -0.8910], "color": "0xffffff" },
+        { "position": [0.1471, -1.1828, 0.8910], "color": "0xffffff" },
+        { "position": [-2.0791, -0.4057, -0.0001], "color": "0xffffff" },
+        { "position": [-1.2472, 0.8979, 0.8810], "color": "0xffffff" },
+        { "position": [-1.2471, 0.8980, -0.8809], "color": "0xffffff" }
+      ],
+      "bonds": [
+        { "atom1": 3, "atom2": 0 },
+        { "atom1": 0, "atom2": 2 },
+        { "atom1": 1, "atom2": 0 },
+        { "atom1": 4, "atom2": 0 },
+        { "atom1": 5, "atom2": 1 },
+        { "atom1": 6, "atom2": 1 },
+        { "atom1": 7, "atom2": 1 }
+      ]
+    },
+   
+    {
+      "offset": [3, 0, 0],
+      "atoms": [
+        { "position": [3.4030, 0.2500, 1.0000], "color": "A020F0" },
+        { "position": [2.5369, -0.2500, 1.0000], "color": "ff0000" },
+        { "position": [2.0000, 0.0600, 1.0000], "color": "ffffff" }
+      ],
+      "bonds": [
+        { "atom1": 0, "atom2": 1 },
+        { "atom1": 1, "atom2": 2 }
+      ]
+    }
+  ]
+  

@@ -13,7 +13,7 @@ const ThreeTest = () => {
         const canvas = canvasRef.current;
         const renderer = new THREE.WebGLRenderer({ canvas });
         renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setClearColor(0xB6BBC4); // Set background color to white
+        renderer.setClearColor(0xffffff); // Set background color to white
 
         // Create a scene
         const scene = new THREE.Scene();
@@ -25,7 +25,7 @@ const ThreeTest = () => {
         // Add lighting
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // Set ambient light color to white
         const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
-        directionalLight.position.set(0, 10, 0); // Adjust light position
+        directionalLight.position.set(1, 10, 1); // Adjust light position
         scene.add(ambientLight, directionalLight);
 
         // Create molecules dynamically from JSON data
@@ -48,7 +48,7 @@ const ThreeTest = () => {
                 const atom1 = moleculeGroup.children[bond.atom1];
                 const atom2 = moleculeGroup.children[bond.atom2];
                 const tubeGeometry = new THREE.TubeGeometry(new THREE.LineCurve3(atom1.position, atom2.position), 8, 0.1, 8, false);
-                const cylinderMaterial = new THREE.MeshBasicMaterial({ color: 0x9DA3A7 });
+                const cylinderMaterial = new THREE.MeshBasicMaterial({ color: 0xA9A9A9 });
                 const cylinderMesh = new THREE.Mesh(tubeGeometry, cylinderMaterial);
                 moleculeGroup.add(cylinderMesh); // Add bond to the molecule group
             });
@@ -85,7 +85,6 @@ const ThreeTest = () => {
         
         // Set a timer to execute myFunction after 2000 milliseconds
         const timerId = setTimeout(() => {
-            console.log('Function executed after 2 seconds');
             const initialDistance = Math.abs(moleculeGroupsRef.current[0].position.x - moleculeGroupsRef.current[1].position.x );
 
             // First Tween
@@ -100,7 +99,7 @@ const ThreeTest = () => {
 
             // Second Tween
             const position2 = moleculeGroupsRef.current[1].position.clone(); // Create a copy of position
-            const target2 = { x: -initialDistance / 2 , z: -2};
+            const target2 = { x: -initialDistance / 2 , z: -0.5};
             const tween2 = new TWEEN.Tween(position2).to(target2, 2000);
             tween2.easing(TWEEN.Easing.Exponential.EaseIn);
             tween2.onUpdate(function () {
@@ -122,12 +121,57 @@ const ThreeTest = () => {
                 moleculeGroupsRef.current[0].add(atomToMove2); // Second molecule's atom added to first molecule
                 atomToMove.position.set(tempPos.x, tempPos.y, tempPos.z); //First molecule's atom position modification
                 moleculeGroupsRef.current[1].add(atomToMove); // First molecule's atom added to second molecule
+                moleculeGroupsRef.current[1].remove(moleculeGroupsRef.current[1].children[0])
+                moleculeGroupsRef.current[1].remove(moleculeGroupsRef.current[1].children[1])
+                moleculeGroupsRef.current[1].children[0].material.color.set(0xffffff)
+                console.log("kk", moleculeGroupsRef.current[1].children[0] )
+                moleculeGroupsRef.current[0].children[14].material.color.set(0xff0000)
+
                 
                 
+                const position = new THREE.Vector3(moleculeGroupsRef.current[0].children[14].position.x - 0.5, moleculeGroupsRef.current[0].children[14].position.y +0.5, moleculeGroupsRef.current[0].children[14].position.z+0.5);
+                const atomMesh = new THREE.Mesh(new THREE.SphereGeometry(0.3, 30, 30));
+                
+                atomMesh.position.copy(position);
+                moleculeGroupsRef.current[0].add(atomMesh);
+                moleculeGroupsRef.current[0].children[15].material.color.set(0xA020F0)
 
-            }, 4000);
+                const tubeGeometry = new THREE.TubeGeometry(new THREE.LineCurve3(moleculeGroupsRef.current[0].children[15].position, moleculeGroupsRef.current[0].children[14].position), 8, 0.1, 8, false);
+                const cylinderMaterial = new THREE.MeshBasicMaterial({ color: 0x9DA3A7 });
+                const cylinderMesh = new THREE.Mesh(tubeGeometry, cylinderMaterial);
+                moleculeGroupsRef.current[0].add(cylinderMesh); // Add bond to the molecule group
+                
+                
+                // atom added
 
-          }, 2000);
+
+                // const positionA = [1, 1, 1.0000]; 
+                // const position = new THREE.Vector3().fromArray(positionA);
+                // const Color =  "A020F0";
+                // const color = parseInt(Color, 16);
+                // const atomMesh = new THREE.Mesh(new THREE.SphereGeometry(0.3, 30, 30), new THREE.MeshPhongMaterial({ color }));
+                // atomMesh.position.copy(position);
+                // moleculeGroupsRef.current[0].add(atomMesh);
+               
+                // const atomToMove = moleculeGroupsRef.current[1].children[0];
+                // const atomToMove1 = moleculeGroupsRef.current[1].children[1];
+                // const bond = moleculeGroupsRef.current[1].children[3];
+                // const bond1 = moleculeGroupsRef.current[1].children[4];
+                // moleculeGroupsRef.current[1].remove(atomToMove);
+                // moleculeGroupsRef.current[1].remove(atomToMove1);
+                // moleculeGroupsRef.current[1].remove(bond);
+                // // moleculeGroupsRef.current[1].remove(bond1);
+               
+                // moleculeGroupsRef.current[0].add(atomToMove);
+             
+                // const atomToMove2 = moleculeGroupsRef.current[0].children[2];
+                // moleculeGroupsRef.current[0].remove(atomToMove2);
+                // atomToMove2.position.set( atomToMove.position.x, atomToMove.position.y , atomToMove.position.z );
+
+
+            }, 2000);
+
+          }, 1000);
 
         // Cleanup function to clear the timer when the component unmounts
         return () => {
